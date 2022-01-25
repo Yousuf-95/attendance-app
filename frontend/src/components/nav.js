@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 import styles from'../styles/nav.module.css';
 
 const NavBar = () => {
-
     return (
         <>
             <nav className={`${styles.navBar}`}>
@@ -12,14 +11,31 @@ const NavBar = () => {
                     <h1 className={`${styles.logo}`}>Qalam Academy</h1>
                     <ul className={`${styles.navLinks}`}>
                         <li>
-                            <Link className={`${styles.link}`} to="/">Home</Link>
+                            <NavLink className={`${styles.link}`}  
+                                style={({ isActive }) => {
+                                    return {
+                                        'boxShadow': isActive ? "0px -0.2rem 0px 0px #fff inset" : ""
+                                    };
+                                }} to="/">
+                                Home
+                            </NavLink>
                         </li>
                         <li>
+                            <NavLink className={`${styles.link}`} 
+                                style={({ isActive }) => {
+                                    return {
+                                        'boxShadow': isActive ? "0px -0.2rem 0px 0px #fff inset" : ""
+                                    };
+                                }}
+                            to="/login">Login</NavLink>
+                        </li>
+                        
+                        {/* <li>
                             <Link className={`${styles.link}`} to="/about">About</Link>
                         </li>
                         <li>
                             <Link className={`${styles.link}`} to="/login">Login</Link>
-                        </li>
+                        </li> */}
                         {/* {
                             authContext.isAuthenticated() ?
                                 <li>

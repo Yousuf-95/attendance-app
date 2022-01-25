@@ -36,7 +36,7 @@
 
 
 .link {
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     color: #fff;
     display: block;
     text-align: center;
@@ -48,6 +48,10 @@
     transition: background-color 200ms ease-in, box-shadow 200ms ease-in;
     box-shadow: 0px -0.2rem 0px 0px transparent inset;
     /* border-bottom:  0.2rem inset transparent; */
+}
+.active {
+    box-shadow: 0px -0.2rem 0px 0px #fff inset;
+    background-color: #475569;
 }
 
 .link:hover {
