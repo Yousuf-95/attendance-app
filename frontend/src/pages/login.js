@@ -1,9 +1,33 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import styles from '../styles/login.module.css';
 import {FaUserAlt, FaKey} from 'react-icons/fa';
 import {BsArrowRight} from 'react-icons/bs';
+import { AuthContext } from '../context/authContext';
 
 const Login = () => {
+    const authContext = useContext(AuthContext);
+    let [username, setUsername] = useState('');
+    let [password, setPassword] = useState('');
+
+    const submitCredentials = async (e) => {
+        e.preventDefault();
+
+        const submitResult = await fetch('/api/login', {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password
+            }),
+            headers: {
+                "content-type": "application/json"
+            } 
+        });
+
+        const result = await submitResult.json();
+        console.log(result);
+
+    }
+
     return (
         <section className={`${styles.loginSection}`}>
 
@@ -20,18 +44,18 @@ const Login = () => {
                                 <div><label>Username</label></div>
                                 <div className={`${styles.userIcon}`}>
                                     <span>< FaUserAlt /></span>
-                                    <input type="text" placeholder='Username'/>
+                                    <input type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value)} />
                                 </div>
                             </div>
                             <div className={`${styles.formGroup}`}>
                                 <label>Password</label>
                                 <div className={`${styles.userIcon}`}>
                                     <span>< FaKey /></span>
-                                    <input type="password" placeholder='Password' />
+                                    <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                             </div>
 
-                            <button type='submit' className={`${styles.btn}`}>Login <span className={`${styles.arrowKey}`}>< BsArrowRight /></span></button>
+                            <button type="submit" className={`${styles.btn}`} onClick={(e) => submitCredentials(e)} >Login <span className={`${styles.arrowKey}`}>< BsArrowRight /></span></button>
                         </form>
                     </div>
                 </div>
