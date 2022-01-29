@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import {NavLink} from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 
 import styles from'../styles/nav.module.css';
 
 const NavBar = () => {
+    const authContext = useContext(AuthContext);
+
     return (
         <>
             <nav className={`${styles.navBar}`}>
@@ -20,38 +23,48 @@ const NavBar = () => {
                                 Home
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink className={`${styles.link}`} 
-                                style={({ isActive }) => {
-                                    return {
-                                        'boxShadow': isActive ? "0px -0.2rem 0px 0px #fff inset" : ""
-                                    };
-                                }}
-                            to="/login">Login</NavLink>
-                        </li>
-                        
-                        {/* <li>
-                            <Link className={`${styles.link}`} to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link className={`${styles.link}`} to="/login">Login</Link>
-                        </li> */}
-                        {/* {
-                            authContext.isAuthenticated() ?
+
+                        {/* Pages for logged-in users only */}
+                        {
+                            authContext.authState.isAuthenticated
+                            ?
                                 <li>
-                                    <Link className="link" to="/add-user">Add User</Link>
-                                </li> :
+                                    <NavLink className={`${styles.link}`}
+                                        style={({ isActive }) => {
+                                            return {
+                                                'boxShadow': isActive ? "0px -0.2rem 0px 0px #fff inset" : ""
+                                            };
+                                        }}
+                                        to="/dashboard">Dashboard</NavLink>
+                                </li>
+                            :
                                 ''
                         }
-                        {
-                            authContext.isAuthenticated() ?
+
+                        {/* Login/Logout conditional rendering */}
+                        {authContext.authState.isAuthenticated
+                            ?
                                 <li>
-                                    <Link className="link" to="/" onClick={authContext.logout}>Logout</Link>
-                                </li> :
-                                <li>
-                                    <Link className="link" to="/login">Login</Link>
+                                <NavLink className={`${styles.link}`} 
+                                    // style={({ isActive }) => {
+                                    //     return {
+                                    //         'boxShadow': isActive ? "0px -0.2rem 0px 0px #fff inset" : ""
+                                    //     };
+                                    // }}
+                                to="/" onClick={() => authContext.logout()}>Logout</NavLink>
                                 </li>
-                        } */}
+                            :
+                                <li>
+                                <NavLink className={`${styles.link}`} 
+                                    style={({ isActive }) => {
+                                        return {
+                                            'boxShadow': isActive ? "0px -0.2rem 0px 0px #fff inset" : ""
+                                        };
+                                    }}
+                                to="/login">Login</NavLink>
+                                </li>
+                        }
+
                     </ul>
                 </div>
             </nav>

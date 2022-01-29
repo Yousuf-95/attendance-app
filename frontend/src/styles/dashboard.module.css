@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.dashboardSection {
+    background: #e2e8f0;
+    width: 100vw;
+    height: calc(100vh - 70px);
+}

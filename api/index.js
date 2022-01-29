@@ -69,23 +69,23 @@ app.use(
     })
     );
     
-app.get('/api/get-token',(req,res) => {
-    res.json({csrfToken: req.csrfToken()});
-});
+// app.get('/api/get-token',(req,res) => {
+//     res.json({csrfToken: req.csrfToken()});
+// });
 
-const requireAuth = (req,res,next) => {
-    const {user} = req.session;
-    if(!user){
-        return res.status(401).json({message:"Unauthorized"});
-    }
-    next();
-}
+// const requireAuth = (req,res,next) => {
+//     const {user} = req.session;
+//     if(!user){
+//         return res.status(401).json({message:"Unauthorized"});
+//     }
+//     next();
+// }
 
 
-app.use(requireAuth, (req,res,next) => {
-    console.log(req.session);
-    next();
-});
+// app.use(requireAuth, (req,res,next) => {
+//     console.log(req.session);
+//     next();
+// });
 
 
 app.post('/api/login', async (req,res) => {
@@ -93,17 +93,26 @@ app.post('/api/login', async (req,res) => {
     console.log(username, password);
     
     
-    req.session.user = username;
+    req.session.username = username;
     
     res.status(200).json({
-        message: 'no message'
+        username: `${username}`
     });
 });
 
-app.use(csrfProtection);
+app.get('/api/user-info', (req,res) => {
+    const {username} = req.session;
+    // console.log(username)
+    if(!username){
+        return res.status(401).json({message: "Unauthorized"});
+    }
+    res.json({username});
+});
 
-app.post('/api/logout', requireAuth ,(req,res) => {
-    res.session.destroy(err => {
+// app.use(csrfProtection);
+
+app.post('/api/logout', (req,res) => {
+    req.session.destroy(err => {
         if(err){
             return res.status(400).json({
                 message: "There was a problem logging out"

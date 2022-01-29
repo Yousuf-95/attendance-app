@@ -1,37 +1,62 @@
-import React, {useState, createContext} from 'react';
+import React, { useState, useEffect, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const AuthContext = createContext();
-const {Provider} = AuthContext;
+const { Provider } = AuthContext;
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
+    const navigate = useNavigate();
 
-    let [authState,setAuthState] = useState({
-        userInfo: null,
+    let [authState, setAuthState] = useState({
+        username: null,
         isAuthenticated: false
     });
 
-    const setAuthInfo = ({userInfo}) => {
+    useEffect(() => {
+        const getUserInfo = async () => {
+            try {
+                const user = await fetch('/api/user-info');
+                const {username} = await user.json();
+                // console.log('User.status: ' + user.status);
+                // const {username} = result;
+                // console.table('Username: ' + username);
+                if(user.status === 200){
+                    setAuthState(Object.assign({}, {username: username},{isAuthenticated: true}));
+                    navigate("/dashboard");
+                }
+                console.log(authState);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        getUserInfo();
+    }, [authState.username])
+
+    const setAuthInfo = ({ username }) => {
         setAuthState({
-            userInfo,
-            isAuthenticated: userInfo && userInfo._id ? true : false
+            username,
+            isAuthenticated: username ? true : false
         });
     }
 
     const logout = async () => {
-        try{
-            await fetch('/api/logout');
+        try {
+            await fetch('/api/logout', {
+                method: 'POST'
+            });
 
             setAuthState({
-                userInfo: {},
+                username: {},
                 isAuthenticated: false
             });
-        }catch(err){
+        } catch (err) {
             console.log(err);
         }
     }
 
-    return(
+    return (
         <Provider
             value={{
                 authState,
@@ -44,4 +69,4 @@ const AuthProvider = ({children}) => {
     );
 };
 
-export {AuthContext,AuthProvider};
+export { AuthContext, AuthProvider };
