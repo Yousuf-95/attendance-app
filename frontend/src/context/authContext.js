@@ -1,15 +1,15 @@
 import React, { useState, useEffect, createContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 const AuthContext = createContext();
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     let [authState, setAuthState] = useState({
-        username: null,
+        userInfo: {},
         isAuthenticated: false
     });
 
@@ -17,27 +17,38 @@ const AuthProvider = ({ children }) => {
         const getUserInfo = async () => {
             try {
                 const user = await fetch('/api/user-info');
-                const {username} = await user.json();
+                const {userInfo} = await user.json();
+                // console.log(typeof(userInfo));
                 // console.log('User.status: ' + user.status);
                 // const {username} = result;
-                // console.table('Username: ' + username);
+                // console.table(userInfo);
                 if(user.status === 200){
-                    setAuthState(Object.assign({}, {username: username},{isAuthenticated: true}));
-                    navigate("/dashboard");
+                    // console.log('within user.status===200')
+                    setAuthState({
+                        username: userInfo.username,
+                        userInfo,
+                        isAuthenticated: true,
+                    });
+                    // navigate("/dashboard", {replace: true});
                 }
-                console.log(authState);
+                // console.log(authState);
             }
             catch (error) {
                 console.log(error);
+                setAuthState({
+                    username: null,
+                    userInfo: {},
+                    isAuthenticated: false
+                });
             }
         }
         getUserInfo();
-    }, [authState.username])
+    }, []);
 
-    const setAuthInfo = ({ username }) => {
+    const setAuthInfo = ({ userInfo }) => {
         setAuthState({
-            username,
-            isAuthenticated: username ? true : false
+            userInfo,
+            isAuthenticated: userInfo.username ? true : false
         });
     }
 

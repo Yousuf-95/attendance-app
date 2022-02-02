@@ -25,15 +25,20 @@ const Login = () => {
             }
         });
 
-        const result = await submitResult.json();
-        console.log(result);
-        authContext.setAuthState({ username });
-        setRedirectOnLogin(true);
+        if(submitResult.status === 403) 
+            alert('invalid Username/Password combination');
+
+        const {userInfo} = await submitResult.json();
+        // console.log(userInfo);
+        if(submitResult.status === 200 && userInfo){
+            authContext.setAuthState({ userInfo });
+            setRedirectOnLogin(true);
+        }
     }
 
     return (
         <>
-            {redirectOnLogin && <Navigate to="/dashboard" />}
+            {redirectOnLogin && <Navigate to="/dashboard" replace={true} />}
             <section className={`${styles.loginSection}`}>
 
                 <div className={`${styles.container}`}>
