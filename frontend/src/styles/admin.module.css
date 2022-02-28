@@ -24,6 +24,7 @@
 .flexContainer {
   display: flex;
   /* flex: 1; */
+  /* align-content: center; */
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -35,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: -8rem 0 0.2rem 0;
+  margin: -1rem 0 0.2rem 0;
 }
 
 .loginForm {
@@ -84,6 +85,19 @@
   border-color: #334155;
   /* border: 1px #334155 solid; */
 }
+.loginForm .formGroup select, .loginForm .formGroup select option {
+  width: 100%;
+  /* margin: 2rem auto; */
+  padding: 0.65rem;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+}
+.loginForm .formGroup select:enabled, .loginForm .formGroup select option:enabled {
+  outline: none;
+  border-color: #334155;
+  /* border: 1px #334155 solid; */
+}
 
 .btn {
   color: #fff;
@@ -106,23 +120,25 @@
   margin: 0 0 -0.2rem 0.2rem;
 }
 
-.mySvg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
-  transform: rotate(180deg);
-}
-.mySvg svg {
-  position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 150px;
-}
-.mySvg .shapeFill {
-  fill: #7e8da5;
+/* .mySvg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
 }
 
-/*# sourceMappingURL=login.module.css.map */
+.mySvg svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+}
+
+.mySvg .shapeFill {
+    fill: #7e8da5;
+} */
+
+/*# sourceMappingURL=admin.module.css.map */
