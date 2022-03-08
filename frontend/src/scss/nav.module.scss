@@ -63,3 +63,18 @@
     box-shadow: 0px -0.2rem 0px 0px #fff inset;
     background-color: #475569;
 }
+
+@media screen and (max-width: 768px) {
+    .container{
+        min-width: 90vw;
+    }
+    .logo{
+        display:none;
+    }
+
+    .link{
+        padding: 18px;
+        font-size: 1rem;
+        // font-weight: 400;
+    }
+}

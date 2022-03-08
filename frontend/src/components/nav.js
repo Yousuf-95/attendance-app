@@ -1,4 +1,4 @@
-import React, { useContext} from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 
@@ -12,7 +12,9 @@ const NavBar = () => {
         <>
             <nav className={`${styles.navBar}`}>
                 <div className={`${styles.container}`}>
-                    <h1 className={`${styles.logo}`}>Qalam Academy</h1>
+                    <div>
+                        <h1 className={`${styles.logo}`}>Qalam Academy</h1>
+                    </div>
                     <ul className={`${styles.navLinks}`}>
                         <li>
                             <NavLink className={`${styles.link}`}

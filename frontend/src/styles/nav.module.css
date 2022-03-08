@@ -61,4 +61,19 @@
   background-color: #475569;
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    min-width: 90vw;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .link {
+    padding: 18px;
+    font-size: 1rem;
+  }
+}
+
 /*# sourceMappingURL=nav.module.css.map */
