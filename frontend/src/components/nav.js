@@ -16,7 +16,7 @@ const NavBar = () => {
                         <h1 className={`${styles.logo}`}>Qalam Academy</h1>
                     </div>
                     <ul className={`${styles.navLinks}`}>
-                        <li>
+                        {/* <li>
                             <NavLink className={`${styles.link}`}
                                 style={({ isActive }) => {
                                     return {
@@ -25,7 +25,7 @@ const NavBar = () => {
                                 }} to="/">
                                 Home
                             </NavLink>
-                        </li>
+                        </li> */}
 
                         {/* Pages for logged-in users only */}
                         {
